@@ -21,6 +21,16 @@ h2 {
 }
 
 /* Procedural text */
+#intro {
+    position: absolute;       /* position relative to container */
+    top: 50%;                 /* halfway down the container */
+    transform: translateY(-50%); /* adjust so text is perfectly centered vertically */
+    text-align: center;
+    font-size: 2em;
+    width: 80%;   
+}
+
+/* Procedural text */
 #blob {
     width: 100%;
     text-align: center;
@@ -51,7 +61,7 @@ button:hover {
 <body>
 
 <h2>🍪 Who Stole the Cookies from the Cookie Jar?</h2>
-<div id="blob">Click the button below to investigate…</div>
+<div id="intro">Click the button below to investigate…</div>
 <button id="generateBtn">Reveal the Culprit!</button>
 
 <script>
