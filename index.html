@@ -17,14 +17,14 @@ body {
     color: dimgray;
     text-align: center;
     margin-bottom: 40px;
-    font-size: 3em; /* big header */
+    font-size: 3em;
   }
 
   /* Procedural text */
   #blob {
     width: 75%;
     margin: auto;
-    font-size: 2em; /* bigger body text */
+    font-size: 2em;
     min-height: 100px;
     white-space: pre-wrap;
   }
@@ -67,6 +67,18 @@ const reasons = [
   "They were seen licking their fingers near the cookie jar. Nom nom nom."
 ];
 
+const messages = [
+  "👀 Who stole the cookies from the cookie jar?\nTHIEF!\n🍪 THIEF definitely took the cookies!\nREASON",
+  "🔍 I suspect THIEF...\nWhy? Because REASON",
+  "🚨 Emergency! The cookies are gone! THIEF was acting suspicious.\nREASON",
+  "🕵️ Detective Mode: Activated.\nPrimary suspect: THIEF.\nEvidence: REASON",
+  "👁️ Observations suggest THIEF is guilty.\nDetails: REASON",
+  "🤔 My instincts point to THIEF...\nReason: REASON",
+  "💥 Alert! Cookie heist in progress. THIEF seems to be the culprit!\nREASON",
+  "🍪 The cookie jar is empty and THIEF is the prime suspect.\nREASON",
+  "📢 Witnesses report seeing THIEF near the cookies.\nWhy suspicious? REASON"
+];
+
 function randomItem(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
@@ -74,25 +86,9 @@ function randomItem(arr) {
 function generate() {
   const thief = randomItem(suspects);
   const reason = randomItem(reasons);
-  const messages = [
-      "origin": [
-        "[thief:#suspect#]
-              "👀 Who stole the cookies from the cookie jar?\n#suspect#!\n🍪 #thief# definitely took the cookies!\n#reason#",
-              "🔍 I suspect #suspect#...\nWhy? Because #reason#",
-              "🚨 Emergency! The cookies are gone! #suspect# was acting suspicious.\n#reason#",
-              "🕵️ Detective Mode: Activated.\nPrimary suspect: #thief#.\nEvidence: #reason#",
-              "👁️ Observations suggest #thief# is guilty.\nDetails: #reason#",
-              "🤔 My instincts point to #thief#...\nReason: #reason#",
-              "💥 Alert! Cookie heist in progress. #thief# seems to be the culprit!\n#reason#",
-              "🍪 The cookie jar is empty and #thief# is the prime suspect.\n#reason#",
-              "📢 Witnesses report seeing #thief# near the cookies.\nWhy suspicious? #reason#"
-              ];
-  document.getElementById("blob").innerText = randomItem(messages);
-}
+  const template = randomItem(messages);
 
-// Only generate when button is clicked
-document.getElementById("generateBtn").addEventListener("click", generate);
-</script>
+  // Replace placeholders
+  const message = template.replace(/THIEF/g, thief).replace(/REASON/g, reason);
 
-</body>
-</html>
+  document.getElementById("
