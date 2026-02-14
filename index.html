@@ -54,12 +54,17 @@ body {
 <button id="generateBtn">Reveal the Culprit</button>
 
 <script>
-const suspects = ["Alice","Bob","Charlie","Diana","Eve","Frank","Greta","Hank","Ivy"];
+const suspects = ["Atlas","Sam","PB","Adeline","Christine","Andrea","Abhik","Irish","Sandra","Fourth","Zahra","Ting","Aysha","Ralph","Roya","Tanvia","Marissa","Mira","Ellie","Layla"];
 const reasons = [
   "They had crumbs all over their face.",
-  "They were seen near the jar before the cookies vanished.",
-  "They have a notorious sweet tooth.",
-  "They were holding an empty napkin and whistling."
+  "They were spotted near the cookie jar at noon.",
+  "They have a notorious sweet tooth and can NEVER resist.",
+  "They just look so guilty.",
+  "They ran away when someone asked about cookies. That's gotta mean something.",
+  "They were the last one in the kitchen and acted suspicious.",
+  "They smelled suspiciously like chocolate chips.",
+  "They were humming the cookie theme song while tiptoeing.",
+  "They were seen licking their fingers near the cookie jar. Nom nom nom."
 ];
 
 function randomItem(arr) {
@@ -70,9 +75,15 @@ function generate() {
   const thief = randomItem(suspects);
   const reason = randomItem(reasons);
   const messages = [
-    `👀 Who stole the cookies from the cookie jar?\n${thief}!\n🍪 ${thief} stole the cookies from the cookie jar!\n${reason}`,
-    `🔍 I suspect ${thief}...\nWhy? Because ${reason}.`,
-    `🚨 The cookies are gone! And ${thief} was acting suspicious.\n${reason}`
+  "👀 Who stole the cookies from the cookie jar?\n#thief#!\n🍪 #thief# definitely took the cookies!\n#reason#",
+  "🔍 I suspect #thief#...\nWhy? Because #reason#",
+  "🚨 Emergency! The cookies are gone! #thief# was acting suspicious.\n#reason#",
+  "🕵️ Detective Mode: Activated.\nPrimary suspect: #thief#.\nEvidence: #reason#",
+  "👁️ Observations suggest #thief# is guilty.\nDetails: #reason#",
+  "🤔 My instincts point to #thief#...\nReason: #reason#",
+  "💥 Alert! Cookie heist in progress. #thief# seems to be the culprit!\n#reason#",
+  "🍪 The cookie jar is empty and #thief# is the prime suspect.\n#reason#",
+  "📢 Witnesses report seeing #thief# near the cookies.\nWhy suspicious? #reason#"
   ];
   document.getElementById("blob").innerText = randomItem(messages);
 }
