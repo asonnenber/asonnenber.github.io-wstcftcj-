@@ -1,82 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>🍪 Who Stole the Cookies from the Cookie Jar?</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🍪 Who Stole the Cookies?</title>
+<style>
+  body { font-family: sans-serif; background: #fefae0; color: #333; padding: 32px; text-align: center; }
+  h2 { margin-bottom: 20px; color: dimgray; }
+  #blob { margin: 32px auto; font-size: 1.2em; width: 75%; min-height: 80px; white-space: pre-wrap; }
+  button { background: #f4a261; border: none; border-radius: 8px; color: white; padding: 16px 32px; font-size: 19px; cursor: pointer; margin-top: 16px; transition-duration: 0.4s; }
+  button:hover { background-color: #e76f51; }
+</style>
 
-  <style>
-    body {
-      margin: auto;
-      background-color: #fefae0;
-      color: #333;
-      font-family: sans-serif;
-      padding: 32px;
-      text-align: center;
-    }
-    h2 { color: dimgray; margin-bottom: 20px; }
-    #blob {
-      width: 75%;
-      margin: 32px auto;
-      font-size: 1.2em;
-      white-space: pre-wrap;
-      min-height: 100px; /* prevents overlap with button */
-    }
-    button {
-      background: #f4a261;
-      border-radius: 8px;
-      border: none;
-      color: white;
-      padding: 16px 32px;
-      font-size: 19px;
-      cursor: pointer;
-      margin-top: 16px;
-      transition-duration: 0.4s;
-    }
-    button:hover { background-color: #e76f51; }
-  </style>
-
-  <!-- Tracery CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/tracery-grammar@0.1.1/tracery.min.js"></script>
+<!-- ONLY use this CDN -->
+<script src="https://cdn.jsdelivr.net/npm/tracery-grammar@0.1.1/tracery.min.js"></script>
 </head>
 <body>
 
-  <h2>🍪 Who Stole the Cookies from the Cookie Jar?</h2>
+<h2>🍪 Who Stole the Cookies from the Cookie Jar?</h2>
+<div id="blob">Click the button to investigate…</div>
+<button id="generateBtn">Reveal the Culprit</button>
 
-  <div id="blob">Click the button to investigate…</div>
+<script>
+  // define grammar
+  const grammarObj = {
+    origin: [
+      "[thief:#suspect#]👀 Who stole the cookies from the cookie jar?\n#thief#!\n🍪 #thief# stole the cookies from the cookie jar!\n#reason#",
+      "[thief:#suspect#]🔍 I suspect #thief#...\nWhy? Because #reason#.",
+      "[thief:#suspect#]🚨 The cookies are gone! And #thief# was acting suspicious.\n#reason#"
+    ],
+    suspect: ["Alice","Bob","Charlie","Diana","Eve","Frank","Greta","Hank","Ivy"],
+    reason: [
+      "They had crumbs all over their face.",
+      "They were spotted near the jar moments before the cookies vanished.",
+      "They have a notorious sweet tooth.",
+      "They were holding an empty napkin and whistling.",
+      "They ran away when asked about cookies.",
+      "They were the last one in the kitchen.",
+      "They smelled suspiciously like chocolate chips."
+    ]
+  };
 
-  <button id="generateBtn">Reveal the Culprit</button>
+  // create grammar
+  const grammar = tracery.createGrammar(grammarObj);
 
-  <script>
-    // Grammar
-    var grammarObj = {
-      "origin": [
-        "[thief:#suspect#]👀 Who stole the cookies from the cookie jar?\n#thief#!\n🍪 #thief# stole the cookies from the cookie jar!\n#reason#",
-        "[thief:#suspect#]🔍 I suspect #thief#...\nWhy? Because #reason#.",
-        "[thief:#suspect#]🚨 The cookies are gone! And #thief# was acting mighty suspicious.\n#reason#",
-        "[thief:#suspect#]🕵️ Detective Mode: Activated.\nPrimary suspect: #thief#.\nCase evidence: #reason#."
-      ],
-      "suspect": ["Alice","Bob","Charlie","Diana","Eve","Frank","Greta","Hank","Ivy"],
-      "reason": [
-        "They had crumbs all over their face.",
-        "They were spotted near the jar moments before the cookies vanished.",
-        "They have a notorious sweet tooth.",
-        "They were holding an empty napkin and whistling.",
-        "They ran away when asked about cookies.",
-        "They were the last one in the kitchen.",
-        "They smelled suspiciously like chocolate chips."
-      ]
-    };
-
-    var grammar = tracery.createGrammar(grammarObj);
-
-    // Attach button properly
-    document.getElementById("generateBtn").addEventListener("click", function() {
-      document.getElementById("blob").innerText = grammar.flatten("#origin#");
-    });
-
-    // Generate text on page load
+  // attach button
+  document.getElementById("generateBtn").addEventListener("click", () => {
     document.getElementById("blob").innerText = grammar.flatten("#origin#");
-  </script>
+  });
+
+  // initial text
+  document.getElementById("blob").innerText = grammar.flatten("#origin#");
+</script>
 
 </body>
 </html>
