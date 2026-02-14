@@ -12,25 +12,25 @@ body {
     text-align: center;
   }
 
-  /* Header */
-  h2 {
+/* Header */
+h2 {
     color: dimgray;
     text-align: center;
     margin-bottom: 40px;
     font-size: 3em;
-  }
+}
 
-  /* Procedural text */
-  #blob {
+/* Procedural text */
+#blob {
     width: 75%;
     margin: auto;
     font-size: 2em;
     min-height: 100px;
     white-space: pre-wrap;
-  }
+}
 
-  /* Button */
-  button {
+/* Button */
+button {
     background: #f4a261;
     border: none;
     border-radius: 8px;
@@ -40,11 +40,11 @@ body {
     cursor: pointer;
     margin-top: 40px;
     transition-duration: 0.4s;
-  }
+}
 
-  button:hover {
+button:hover {
     background-color: #e76f51;
-  }
+}
 </style>
 </head>
 <body>
@@ -91,4 +91,12 @@ function generate() {
   // Replace placeholders
   const message = template.replace(/THIEF/g, thief).replace(/REASON/g, reason);
 
-  document.getElementById("
+  document.getElementById("blob").innerText = message;
+}
+
+// Hook up the button
+document.getElementById("generateBtn").addEventListener("click", generate);
+</script>
+
+</body>
+</html>
