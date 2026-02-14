@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🍪 Who Stole the Cookies from the Cookie Jar?</title>
+
+  <!-- Styles -->
+  <style>
+    body {
+      margin: auto;
+      background-color: #fefae0;
+      color: #333333;
+      padding: 32px;
+      text-align: center;
+      font-family: sans-serif;
+    }
+
+    h2 {
+      color: dimgray;
+      text-align: center;
+      margin: 20px;
+    }
+
+    button {
+      background: #f4a261;
+      border-radius: 8px;
+      border: none;
+      color: white;
+      padding: 16px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 19px;
+      margin: 16px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #e76f51;
+    }
+
+    #blob {
+      width: 75%;
+      margin: auto;
+      font-size: 1.2em;
+      white-space: pre-wrap;
+    }
+  </style>
+
+  <!-- Tracery CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/tracery-grammar@0.1.1/tracery.min.js"></script>
+</head>
+
+<body>
+
+  <h2>🍪 Who Stole the Cookies from the Cookie Jar?</h2>
+
+  <div id="blob">Click the button to investigate…</div>
+
+  <button onclick="generate()">Reveal the Culprit</button>
+
+  <script>
+    // Grammar
+    var grammarObj = { 
+      "origin": [
+        "[thief:#suspect#]👀 Who stole the cookies from the cookie jar?\n#thief#!\n🍪 #thief# stole the cookies from the cookie jar!\n#reason#",
+        "[thief:#suspect#]🔍 I suspect #thief#...\nWhy? Because #reason#.",
+        "[thief:#suspect#]🚨 The cookies are gone! And #thief# was acting mighty suspicious.\n#reason#",
+        "[thief:#suspect#]🕵️ Detective Mode: Activated.\nPrimary suspect: #thief#.\nCase evidence: #reason#."
+      ],
+
+      "suspect": [
+        "Alice", "Bob", "Charlie", "Diana", "Eve", "Frank", "Greta", "Hank", "Ivy"
+      ],
+
+      "reason": [
+        "They had crumbs all over their face.",
+        "They were spotted near the jar moments before the cookies vanished.",
+        "They have a notorious sweet tooth.",
+        "They were holding an empty napkin and whistling.",
+        "They ran away when asked about cookies.",
+        "They were the last one in the kitchen.",
+        "They smelled suspiciously like chocolate chips."
+      ]
+    };
+
+    var grammar = tracery.createGrammar(grammarObj);
+
+    function generate() {
+      var t = grammar.flatten("#origin#");
+      document.getElementById("blob").innerText = t;
+    }
+  </script>
+
+</body>
+</html>
