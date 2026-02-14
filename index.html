@@ -4,39 +4,54 @@
 <meta charset="UTF-8">
 <title>🍪 Who Stole the Cookies from the Cookie Jar?</title>
 <style>
+/* === Body & Layout === */
 body {
     font-family: sans-serif;
     background: #fefae0;
     color: #333;
     padding: 32px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* full viewport height */
     text-align: center;
-  }
+}
 
-/* Header */
+/* === Container for header, text, button === */
+.generator-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* header top, button bottom, blob in middle */
+    align-items: center;
+    height: 400px;   /* total vertical space */
+    width: 80%;      /* optional width */
+}
+
+/* === Header === */
 h2 {
     color: dimgray;
-    text-align: center;
-    margin-bottom: 60px;
     font-size: 3em;
+    margin: 0;
 }
 
-/* Procedural text */
-#intro {
-    text-align: center;
-    font-size: 2em;
-    min-height: 150px;
-    white-space: normal; 
-}
-
-/* Procedural text */
+/* === Procedural text / message === */
 #blob {
-    text-align: center;
+    display: flex;
+    justify-content: center;  /* horizontal centering */
+    align-items: center;      /* vertical centering in space */
     font-size: 2em;
-    min-height: 150px;
-    white-space: normal;
+    min-height: 50px;
+    max-height: 200px;        /* prevents button from moving on long messages */
+    width: 100%;
+    text-align: center;
+    white-space: pre-wrap;    /* preserves line breaks from JS */
+    overflow-y: auto;         /* scroll if message too long */
+    padding: 10px;
+    box-sizing: border-box;
 }
 
-/* Button */
+/* === Button === */
 button {
     background: #f4a261;
     border: none;
@@ -45,20 +60,32 @@ button {
     padding: 32px 64px;
     font-size: 1.5em;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 0;
     transition-duration: 0.4s;
 }
 
 button:hover {
     background-color: #e76f51;
 }
+
+/* Optional: scrollbar styling for long messages */
+#blob::-webkit-scrollbar {
+    width: 8px;
+}
+
+#blob::-webkit-scrollbar-thumb {
+    background-color: #f4a261;
+    border-radius: 4px;
+}
 </style>
 </head>
 <body>
 
-<h2>🍪 Who Stole the Cookies from the Cookie Jar?</h2>
-<div id="intro">Click the button below to investigate…</div>
-<button id="generateBtn">Reveal the Culprit!</button>
+<div class="generator-container">
+    <h2>🍪 Who Stole the Cookies from the Cookie Jar?</h2>
+    <div id="blob">Click the button below to investigate…</div>
+    <button id="generateBtn">Reveal the Culprit!</button>
+</div>
 
 <script>
 const suspects = ["Atlas","Sam","PB","Adeline","Christine","Andrea","Abhik","Irish","Sandra","Fourth","Zahra","Ting","Aysha","Ralph","Roya","Tanvia","Marissa","Mira","Ellie","Layla"];
@@ -95,13 +122,11 @@ function generate() {
   const reason = randomItem(reasons);
   const template = randomItem(messages);
 
-  // Replace placeholders
   const message = template.replace(/THIEF/g, thief).replace(/REASON/g, reason);
 
   document.getElementById("blob").innerText = message;
 }
 
-// Hook up the button
 document.getElementById("generateBtn").addEventListener("click", generate);
 </script>
 
