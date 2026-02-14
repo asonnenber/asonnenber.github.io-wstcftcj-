@@ -3,15 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>🍪 Who Stole the Cookies?</title>
-
 <style>
   body { font-family: sans-serif; background: #fefae0; color: #333; padding: 2em; text-align: center; }
-  h2 { margin-bottom: 20px; color: dimgray; }
-  #blob { margin: 2em auto; font-size: 1.2em; width: 75%; min-height: 80px; white-space: pre-wrap; padding: 20px; background: rgba(255,255,255,0.5); border-radius: 10px; }
+  #blob { margin: 2em auto; font-size: 1.2em; width: 75%; min-height: 80px; white-space: pre-wrap; }
   button { background: #f4a261; border: none; border-radius: 8px; color: white; padding: 16px 32px; font-size: 18px; cursor: pointer; margin-top: 16px; transition-duration: 0.4s; }
   button:hover { background-color: #e76f51; }
 </style>
-
 </head>
 <body>
 
@@ -20,51 +17,33 @@
 <button id="generateBtn">Reveal the Culprit</button>
 
 <script>
-  // Our own simple grammar system
-  const grammar = {
-    // Templates - the #tags# will be replaced
-    origin: [
-      "[thief]👀 Who stole the cookies from the cookie jar?\n[thief]!\n🍪 [thief] stole the cookies from the cookie jar!\n[reason]",
-      "[thief]🔍 I suspect [thief]...\nWhy? Because [reason].",
-      "[thief]🚨 The cookies are gone! And [thief] was acting mighty suspicious.\n[reason]",
-      "[thief]🕵️ Detective Mode: Activated.\nPrimary suspect: [thief].\nCase evidence: [reason]."
-    ],
-    suspect: ["Alice", "Bob", "Charlie", "Diana", "Eve", "Frank", "Greta", "Hank", "Ivy"],
-    reason: [
-      "They had crumbs all over their face.",
-      "They were spotted near the jar moments before the cookies vanished.",
-      "They have a notorious sweet tooth.",
-      "They were holding an empty napkin and whistling.",
-      "They ran away when asked about cookies.",
-      "They were the last one in the kitchen.",
-      "They smelled suspiciously like chocolate chips."
-    ]
-  };
+const suspects = ["Alice","Bob","Charlie","Diana","Eve","Frank","Greta","Hank","Ivy"];
+const reasons = [
+  "They had crumbs all over their face.",
+  "They were seen near the jar before the cookies vanished.",
+  "They have a notorious sweet tooth.",
+  "They were holding an empty napkin and whistling."
+];
 
-  // Helper function to get random item from array
-  function randomFrom(array) {
-    return array[Math.floor(Math.random() * array.length)];
-  }
+function randomItem(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
 
-  // Our custom text generator
-  function generateText() {
-    // Pick a random template
-    let template = randomFrom(grammar.origin);
-    
-    // Replace all [tags] with random values
-    // This handles [thief] and [reason] tags
-    return template
-      .replace(/\[thief\]/g, randomFrom(grammar.suspect))
-      .replace(/\[reason\]/g, randomFrom(grammar.reason));
-  }
+function generate() {
+  const thief = randomItem(suspects);
+  const reason = randomItem(reasons);
+  const messages = [
+    `👀 Who stole the cookies from the cookie jar?\n${thief}!\n🍪 ${thief} stole the cookies from the cookie jar!\n${reason}`,
+    `🔍 I suspect ${thief}...\nWhy? Because ${reason}.`,
+    `🚨 The cookies are gone! And ${thief} was acting suspicious.\n${reason}`
+  ];
+  document.getElementById("blob").innerText = randomItem(messages);
+}
 
-  // Set up the button click
-  document.getElementById("generateBtn").addEventListener("click", () => {
-    document.getElementById("blob").innerText = generateText();
-  });
+// Initial text
+generate();
 
-  // Generate initial text
-  document.getElementById("blob").innerText = generateText();
+document.getElementById("generateBtn").addEventListener("click", generate);
 </script>
 
 </body>
