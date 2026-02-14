@@ -4,15 +4,52 @@
 <meta charset="UTF-8">
 <title>🍪 Who Stole the Cookies From the Cookie Jar?</title>
 <style>
-  body { font-family: sans-serif; background: #fefae0; color: #333; padding: 2em; text-align: center; }
-  #blob { margin: 2em auto; font-size: 1.2em; width: 75%; min-height: 80px; white-space: pre-wrap; }
-  button { background: #f4a261; border: none; border-radius: 8px; color: white; padding: 16px 32px; font-size: 32px; cursor: pointer; margin-top: 16px; transition-duration: 0.4s; }
-  button:hover { background-color: #e76f51; }
+body {
+    font-family: sans-serif;
+    background: #fefae0;
+    color: #333;
+    padding: 32px;
+    text-align: center;
+  }
+
+  /* Header */
+  h2 {
+    color: dimgray;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 3em; /* big header */
+  }
+
+  /* Procedural text */
+  #blob {
+    width: 75%;
+    margin: auto;
+    font-size: 1.5em; /* bigger body text */
+    min-height: 100px;
+    white-space: pre-wrap;
+  }
+
+  /* Button */
+  button {
+    background: #f4a261;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 16px 32px;
+    font-size: 1.5em;
+    cursor: pointer;
+    margin-top: 24px;
+    transition-duration: 0.4s;
+  }
+
+  button:hover {
+    background-color: #e76f51;
+  }
 </style>
 </head>
 <body>
 
-<h2>🍪 Who Stole the Cookies from the Cookie Jar?</h2>
+<h2>🍪 Who Stole the Cookies From the Cookie Jar?</h2>
 <div id="blob">Click the button below to investigate…</div>
 <button id="generateBtn">Reveal the Culprit</button>
 
