@@ -7,97 +7,65 @@
 <style>
   body { font-family: sans-serif; background: #fefae0; color: #333; padding: 2em; text-align: center; }
   h2 { margin-bottom: 20px; color: dimgray; }
-  #blob { margin: 2em auto; font-size: 1.2em; width: 75%; min-height: 80px; white-space: pre-wrap; }
+  #blob { margin: 2em auto; font-size: 1.2em; width: 75%; min-height: 80px; white-space: pre-wrap; padding: 20px; background: rgba(255,255,255,0.5); border-radius: 10px; }
   button { background: #f4a261; border: none; border-radius: 8px; color: white; padding: 16px 32px; font-size: 18px; cursor: pointer; margin-top: 16px; transition-duration: 0.4s; }
   button:hover { background-color: #e76f51; }
-  button:disabled { background-color: #ccc; cursor: not-allowed; }
 </style>
 
-<!-- Tracery CDN - using a more reliable CDN -->
-<script src="https://unpkg.com/tracery-grammar@2.7.4/build/tracery.min.js"></script>
 </head>
 <body>
 
 <h2>🍪 Who Stole the Cookies from the Cookie Jar?</h2>
-<div id="blob">Loading...</div>
+<div id="blob">Click the button to investigate…</div>
 <button id="generateBtn">Reveal the Culprit</button>
 
 <script>
-  // Function to initialize the generator
-  function initGenerator() {
-    // Check if tracery is available
-    if (typeof tracery === 'undefined') {
-      document.getElementById('blob').innerText = '⚠️ Error: Tracery library failed to load. Please refresh the page.';
-      return false;
-    }
+  // Our own simple grammar system
+  const grammar = {
+    // Templates - the #tags# will be replaced
+    origin: [
+      "[thief]👀 Who stole the cookies from the cookie jar?\n[thief]!\n🍪 [thief] stole the cookies from the cookie jar!\n[reason]",
+      "[thief]🔍 I suspect [thief]...\nWhy? Because [reason].",
+      "[thief]🚨 The cookies are gone! And [thief] was acting mighty suspicious.\n[reason]",
+      "[thief]🕵️ Detective Mode: Activated.\nPrimary suspect: [thief].\nCase evidence: [reason]."
+    ],
+    suspect: ["Alice", "Bob", "Charlie", "Diana", "Eve", "Frank", "Greta", "Hank", "Ivy"],
+    reason: [
+      "They had crumbs all over their face.",
+      "They were spotted near the jar moments before the cookies vanished.",
+      "They have a notorious sweet tooth.",
+      "They were holding an empty napkin and whistling.",
+      "They ran away when asked about cookies.",
+      "They were the last one in the kitchen.",
+      "They smelled suspiciously like chocolate chips."
+    ]
+  };
 
-    const grammarObj = {
-      origin: [
-        "[thief:#suspect#]👀 Who stole the cookies from the cookie jar?\n#thief#!\n🍪 #thief# stole the cookies from the cookie jar!\n#reason#",
-        "[thief:#suspect#]🔍 I suspect #thief#...\nWhy? Because #reason#.",
-        "[thief:#suspect#]🚨 The cookies are gone! And #thief# was acting mighty suspicious.\n#reason#",
-        "[thief:#suspect#]🕵️ Detective Mode: Activated.\nPrimary suspect: #thief#.\nCase evidence: #reason#."
-      ],
-      suspect: ["Alice","Bob","Charlie","Diana","Eve","Frank","Greta","Hank","Ivy"],
-      reason: [
-        "They had crumbs all over their face.",
-        "They were spotted near the jar moments before the cookies vanished.",
-        "They have a notorious sweet tooth.",
-        "They were holding an empty napkin and whistling.",
-        "They ran away when asked about cookies.",
-        "They were the last one in the kitchen.",
-        "They smelled suspiciously like chocolate chips."
-      ]
-    };
-
-    try {
-      const grammar = tracery.createGrammar(grammarObj);
-      
-      const generateBtn = document.getElementById("generateBtn");
-      const blobElement = document.getElementById("blob");
-      
-      // Enable the button
-      generateBtn.disabled = false;
-      
-      // Generate initial text
-      blobElement.innerText = grammar.flatten("#origin#");
-      
-      // Add click handler
-      generateBtn.addEventListener("click", () => {
-        blobElement.innerText = grammar.flatten("#origin#");
-      });
-      
-      return true;
-    } catch (error) {
-      document.getElementById('blob').innerText = '⚠️ Error: Failed to create grammar. Please refresh the page.';
-      console.error('Grammar creation error:', error);
-      return false;
-    }
+  // Helper function to get random item from array
+  function randomFrom(array) {
+    return array[Math.floor(Math.random() * array.length)];
   }
 
-  // Wait for both DOM and scripts to load
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      // Small delay to ensure script is fully loaded
-      setTimeout(initGenerator, 100);
-    });
-  } else {
-    // DOM is already loaded
-    setTimeout(initGenerator, 100);
+  // Our custom text generator
+  function generateText() {
+    // Pick a random template
+    let template = randomFrom(grammar.origin);
+    
+    // Replace all [tags] with random values
+    // This handles [thief] and [reason] tags
+    return template
+      .replace(/\[thief\]/g, randomFrom(grammar.suspect))
+      .replace(/\[reason\]/g, randomFrom(grammar.reason));
   }
 
-  // Fallback: if tracery still doesn't load after 2 seconds, show error
-  setTimeout(() => {
-    if (typeof tracery === 'undefined') {
-      document.getElementById('blob').innerText = '⚠️ Error: Tracery library failed to load. Please check your internet connection and refresh.';
-      document.getElementById('generateBtn').disabled = true;
-    }
-  }, 2000);
+  // Set up the button click
+  document.getElementById("generateBtn").addEventListener("click", () => {
+    document.getElementById("blob").innerText = generateText();
+  });
+
+  // Generate initial text
+  document.getElementById("blob").innerText = generateText();
 </script>
-
-<noscript>
-  <div style="color: red; margin-top: 20px;">JavaScript is required for this page to work properly.</div>
-</noscript>
 
 </body>
 </html>
